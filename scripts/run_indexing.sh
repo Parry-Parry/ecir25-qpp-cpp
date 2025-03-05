@@ -2,7 +2,6 @@ INDEX_PATH=$1
 RETRIEVER=$2
 IR_DATASET=$3
 CHECKPOINT=$4
-mkdir -p $OUTPUT_DIR
 
 CMD="python -m corpuspp.index \
     --index_path $INDEX_PATH \
