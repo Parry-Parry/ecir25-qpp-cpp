@@ -37,6 +37,7 @@ def main(
         queries = pd.DataFram(dataset.queries_iter()).rename(columns={'query_id': 'qid', 'text': 'query'})
     if retriever == 'lexical':
         queries['query'] = queries['query'].apply(filter_alnum_spaces)
+    print(queries.head())
     result = pipe.transform(queries)
     index_path_basename = os.path.basename(index_path)
     output_file = os.path.join(output_directory, f"{retriever}.{index_path_basename}.{depth}.tsv.gz")
