@@ -5,7 +5,7 @@ import pyterrier as pt
 from fire import Fire
 
 from . import _retrieval as retrievers
-from ._util import queries_from_jsonl
+from ._util import queries_from_jsonl, filter_alnum_spaces
 
 
 def main(
@@ -35,7 +35,8 @@ def main(
     else:
         dataset = irds.load(ir_dataset)
         queries = pd.DataFram(dataset.queries_iter()).rename(columns={'query_id': 'qid', 'text': 'query'})
-
+    if retriever == 'lexical':
+        queries['query'] = queries['query'].apply(filter_alnum_spaces)
     result = pipe.transform(queries)
     index_path_basename = os.path.basename(index_path)
     output_file = os.path.join(output_directory, f"{retriever}.{index_path_basename}.{depth}.tsv.gz")

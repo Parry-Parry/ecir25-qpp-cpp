@@ -16,6 +16,5 @@ def convert_unicode(text):
 def queries_from_jsonl(file: str):
     queries = pd.read_json(file, lines=True, orient='records')
     queries['query'] = queries['query'].apply(convert_unicode)
-    queries['query'] = queries['query'].apply(filter_alnum_spaces)
     queries['qid'] = [str(i) for i in range(len(queries))]
     return queries
