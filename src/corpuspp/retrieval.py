@@ -20,7 +20,7 @@ def main(
         depth: int = 1000,
 ):
     assert query_path is not None or ir_dataset is not None, "Either query_path or ir_dataset must be provided"
-    if retriever not in retrievers.__all__:
+    if f"{retriever}_retriever" not in retrievers.__all__:
         raise ValueError(f"Invalid retriever: {retriever}")
     retriever_obj = getattr(retrievers, f"{retriever}_retriever")(
         index_path=index_path,
