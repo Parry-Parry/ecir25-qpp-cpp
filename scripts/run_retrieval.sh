@@ -6,7 +6,7 @@ DEPTH=${3:-1000}
 CHECKPOINT=$4
 mkdir -p $OUTPUT_DIR
 
-CMD="python corpuspp.retrieval \
+CMD="python -m corpuspp.retrieval \
     --index_path $INDEX_PATH \
     --retriever $RETRIEVER \
     --query_path $QUERY_PATH \

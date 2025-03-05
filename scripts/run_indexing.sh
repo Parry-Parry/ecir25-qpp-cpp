@@ -4,7 +4,7 @@ IR_DATASET=$3
 CHECKPOINT=$4
 mkdir -p $OUTPUT_DIR
 
-CMD="python corpuspp.index \
+CMD="python -m corpuspp.index \
     --index_path $INDEX_PATH \
     --ir_dataset $IR_DATASET \
     --retriever $RETRIEVER"
