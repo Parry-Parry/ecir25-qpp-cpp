@@ -6,7 +6,7 @@ DEPTH=${3:-1000}
 CHECKPOINT=$4
 mkdir -p $OUTPUT_DIR
 
-CMD = "python corpuspp.retrieval \
+CMD="python corpuspp.retrieval \
     --index_path $INDEX_PATH \
     --retriever $RETRIEVER \
     --query_path $QUERY_PATH \
@@ -14,7 +14,7 @@ CMD = "python corpuspp.retrieval \
     --depth $DEPTH"
 
 if [ -n "$CHECKPOINT" ]; then
-    CMD += " --checkpoint $CHECKPOINT"
+    CMD+=" --checkpoint $CHECKPOINT"
 fi
 
 eval $CMD
