@@ -29,6 +29,7 @@ def lexical_retriever(index_path: str, threads: int = 4, **kwargs):
 
 def _batched_wrapper(queries, func, batch_size: int = 128):
     for batch in chunked(queries, batch_size):
+        breakpoint()
         yield func(batch)
 
 
