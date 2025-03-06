@@ -1,3 +1,5 @@
+from more_itertools import chunked
+
 def dense_retriever(index_path: str, checkpoint: str, batch_size: int = 128, **kwargs):
     from pyterrier_dr import HgfBiEncoder, FlexIndex
 
