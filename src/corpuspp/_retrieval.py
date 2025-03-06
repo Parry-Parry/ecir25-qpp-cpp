@@ -1,4 +1,5 @@
 from more_itertools import chunked
+import pandas as pd
 
 def dense_retriever(index_path: str, checkpoint: str, batch_size: int = 128, **kwargs):
     from pyterrier_dr import HgfBiEncoder, FlexIndex
@@ -27,10 +28,11 @@ def lexical_retriever(index_path: str, threads: int = 4, **kwargs):
     return index.bm25()
 
 
-def _batched_wrapper(queries, func, batch_size: int = 128):
-    for batch in chunked(queries, batch_size):
+def _batched_wrapper(queries: pd.DataFrame, func, batch_size: int = 128):
+    for batch in chunked(queries.iterrows(), batch_size):
         breakpoint()
-        yield func(batch)
+        batch_df = pd.DataFrame([row[1] for row in batch])  # Convert back to DataFrame
+        yield func(batch_df)
 
 
 __all__ = ['dense_retriever', 'sparse_retriever', 'lexical_retriever', '_batched_wrapper']
