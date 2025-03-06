@@ -12,9 +12,9 @@ def sparse_indexer(index_path: str, checkpoint: str = 'naver/splade-cocondenser-
     from pyterrier_pisa import PisaIndex
 
     index = PisaIndex(index_path, threads=threads, stemmer='none')
-    splade = Splade(model=checkpoint, verbose=True)
+    splade = Splade(model=checkpoint)
 
-    return splade.doc_encoder() >> index.toks_indexer()
+    return splade.doc_encoder(verbose=True) >> index.toks_indexer()
 
 
 def lexical_indexer(index_path: str, threads: int = 4, **kwargs):

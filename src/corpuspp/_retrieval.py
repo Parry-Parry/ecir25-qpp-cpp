@@ -12,9 +12,9 @@ def sparse_retriever(index_path: str, checkpoint: str = 'naver/splade-cocondense
     from pyterrier_pisa import PisaIndex
 
     index = PisaIndex(index_path, threads=threads, stemmer='none').quantized()
-    splade = Splade(model=checkpoint, verbose=True)
+    splade = Splade(model=checkpoint)
 
-    return splade.query_encoder(batch_size=batch_size) >> index
+    return splade.query_encoder(verbose=True, batch_size=batch_size) >> index
 
 
 def lexical_retriever(index_path: str, threads: int = 4, **kwargs):
