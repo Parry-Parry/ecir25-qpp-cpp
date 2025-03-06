@@ -25,4 +25,9 @@ def lexical_retriever(index_path: str, threads: int = 4, **kwargs):
     return index.bm25()
 
 
-__all__ = ['dense_retriever', 'sparse_retriever', 'lexical_retriever']
+def _batched_wrapper(queries, func, batch_size: int = 128):
+    for batch in chunked(queries, batch_size):
+        yield func(batch)
+
+
+__all__ = ['dense_retriever', 'sparse_retriever', 'lexical_retriever', '_batched_wrapper']

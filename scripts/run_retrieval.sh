@@ -4,6 +4,7 @@ INDEX_PATH=$1
 RETRIEVER=$2
 DEPTH=${3:-1000}
 CHECKPOINT=$4
+BATCHED=$5
 mkdir -p $OUTPUT_DIR
 
 CMD="python -m corpuspp.retrieval \
@@ -15,6 +16,10 @@ CMD="python -m corpuspp.retrieval \
 
 if [ -n "$CHECKPOINT" ]; then
     CMD+=" --checkpoint $CHECKPOINT"
+fi
+
+if [ -n "$BATCHED" ]; then
+    CMD+=" --batched"
 fi
 
 eval $CMD

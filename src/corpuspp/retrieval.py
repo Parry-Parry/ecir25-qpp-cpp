@@ -18,6 +18,7 @@ def main(
         threads: int = 4,
         retriever: str = 'dense',
         depth: int = 1000,
+        batched: bool = False
 ):
     assert query_path is not None or ir_dataset is not None, "Either query_path or ir_dataset must be provided"
     if f"{retriever}_retriever" not in retrievers.__all__:
@@ -38,7 +39,7 @@ def main(
     if retriever == 'lexical':
         queries['query'] = queries['query'].apply(filter_alnum_spaces)
     print(queries.head())
-    result = pipe.transform(queries)
+    result = pipe.transform(queries) if not batched else pd.concat(*retrievers._batched_wrapper(queries, pipe.transform, batch_size))
     index_path_basename = os.path.basename(index_path)
     output_file = os.path.join(output_directory, f"{retriever}.{index_path_basename}.{depth}.tsv.gz")
     if len(result) == 0:
