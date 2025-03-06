@@ -30,8 +30,8 @@ def lexical_retriever(index_path: str, threads: int = 4, **kwargs):
 
 def _batched_wrapper(queries: pd.DataFrame, func, batch_size: int = 128):
     for batch in chunked(queries.iterrows(), batch_size):
-        breakpoint()
         batch_df = pd.DataFrame([row[1] for row in batch])  # Convert back to DataFrame
+        breakpoint()
         yield func(batch_df)
 
 
