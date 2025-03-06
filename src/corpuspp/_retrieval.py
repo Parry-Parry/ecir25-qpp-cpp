@@ -4,7 +4,7 @@ def dense_retriever(index_path: str, checkpoint: str, batch_size: int = 128, **k
     index = FlexIndex(index_path)
     model = HgfBiEncoder.from_pretrained(checkpoint, batch_size=batch_size, verbose=True)
 
-    return model >> index.torch_retriever(qbatch=16)
+    return model >> index.np_retriever()
 
 
 def sparse_retriever(index_path: str, checkpoint: str = 'naver/splade-cocondenser-ensembledistil', batch_size: int = 128, threads: int = 4, **kwargs):
