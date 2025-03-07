@@ -3,6 +3,8 @@ import pandas as pd
 import ir_datasets as irds
 import pyterrier as pt
 from fire import Fire
+import ast
+import numpy as np
 
 from . import _retrieval as retrievers
 
@@ -28,6 +30,7 @@ def main(
     pipe = retriever_obj % depth
     if query_path is not None:
         queries = pd.read_csv(query_path, sep='\t')
+        queries['query_vec'] = queries['query_vec'].apply(lambda x: np.array(ast.literal_eval(x), dtype=np.float32))
     else:
         dataset = irds.load(ir_dataset)
         queries = pd.DataFrame(dataset.queries_iter()).rename(columns={'query_id': 'qid', 'text': 'query'})
