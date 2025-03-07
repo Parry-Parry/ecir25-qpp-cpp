@@ -41,14 +41,14 @@ def main(
     print(queries.head())
     result = pipe.transform(queries) if not batched else pd.concat(*retrievers._batched_wrapper(queries, pipe.transform, batch_size))
     index_path_basename = os.path.basename(index_path)
-    output_file = os.path.join(output_directory, f"{retriever}.{index_path_basename}.{depth}.tsv.gz")
     if len(result) == 0:
         print("No results to write")
         return
     if 'no_index' in retriever:
-        result['query_vec'] = result["query_vec"].apply(lambda x: "[" + ", ".join(map(str, x)) + "]")
-        result.to_csv(output_file, sep='\t', index=False)
+        output_file = os.path.join(output_directory, f"{retriever}.{index_path_basename}.{depth}.parquet")
+        result.to_parquet(output_file, index=False)
     else:
+        output_file = os.path.join(output_directory, f"{retriever}.{index_path_basename}.{depth}.tsv.gz")
         pt.io.write_results(result, output_file)
     print(f"Results written to {output_file}")
     return 0
