@@ -46,6 +46,7 @@ def main(
         print("No results to write")
         return
     if 'no_index' in retriever:
+        result['query_vec'] = result["query_vec"].apply(lambda x: "[" + ", ".join(map(str, x)) + "]")
         result.to_csv(output_file, sep='\t', index=False)
     else:
         pt.io.write_results(result, output_file)
