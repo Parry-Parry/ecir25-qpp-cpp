@@ -29,7 +29,7 @@ def main(
         batch_size=batch_size,
         threads=threads
         )
-    pipe = retriever_obj % depth
+    pipe = retriever_obj % depth if 'no_index' not in retriever else retriever_obj
 
     if query_path is not None:
         queries = queries_from_jsonl(query_path)
