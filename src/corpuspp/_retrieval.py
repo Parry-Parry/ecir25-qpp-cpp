@@ -18,12 +18,20 @@ def dense_no_retrieval_retriever(index_path: str, checkpoint: str, batch_size: i
     return index.np_retriever()
 
 
+class DummyTransformer(pt.Transformer):
+    def __init__(self, model):
+        self.model = model
+
+    def transform(self, inp: pd.DataFrame):
+        inp['query_vec'] = self.model.query_encoder().transform(inp)
+
+
 def dense_no_index_retriever(index_path: str, checkpoint: str, batch_size: int = 128, **kwargs):
     from pyterrier_dr import HgfBiEncoder, FlexIndex
 
     model = HgfBiEncoder.from_pretrained(checkpoint, batch_size=batch_size, verbose=True)
 
-    return model
+    return DummyTransformer(model)
 
 
 def sparse_retriever(index_path: str, checkpoint: str = 'naver/splade-cocondenser-ensembledistil', batch_size: int = 128, threads: int = 4, **kwargs):
