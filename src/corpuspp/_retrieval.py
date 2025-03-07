@@ -42,4 +42,4 @@ def _batched_wrapper(queries: pd.DataFrame, func, batch_size: int = 128):
         yield func(batch_df)
 
 
-__all__ = ['dense_retriever', 'sparse_retriever', 'lexical_retriever', '_batched_wrapper']
+__all__ = ['dense_retriever', 'dense_no_index_retriever', 'sparse_retriever', 'lexical_retriever', '_batched_wrapper']
