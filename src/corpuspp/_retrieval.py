@@ -10,6 +10,14 @@ def dense_retriever(index_path: str, checkpoint: str, batch_size: int = 128, **k
     return model >> index.np_retriever()
 
 
+def dense_no_index_retriever(index_path: str, checkpoint: str, batch_size: int = 128, **kwargs):
+    from pyterrier_dr import HgfBiEncoder, FlexIndex
+
+    model = HgfBiEncoder.from_pretrained(checkpoint, batch_size=batch_size, verbose=True)
+
+    return model
+
+
 def sparse_retriever(index_path: str, checkpoint: str = 'naver/splade-cocondenser-ensembledistil', batch_size: int = 128, threads: int = 4, **kwargs):
     from pyt_splade import Splade
     from pyterrier_pisa import PisaIndex
