@@ -25,7 +25,7 @@ class DummyTransformer(pt.Transformer):
         self.model = model
 
     def transform(self, inp: pd.DataFrame):
-        inp['query_vec'] = self.model.query_encoder().transform(inp)
+        return self.model.query_encoder().transform(inp)
 
 
 def dense_no_index_retriever(index_path: str, checkpoint: str, batch_size: int = 128, **kwargs):
