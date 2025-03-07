@@ -10,6 +10,14 @@ def dense_retriever(index_path: str, checkpoint: str, batch_size: int = 128, **k
     return model >> index.np_retriever()
 
 
+def dense_no_retrieval_retriever(index_path: str, checkpoint: str, batch_size: int = 128, **kwargs):
+    from pyterrier_dr import FlexIndex
+
+    index = FlexIndex(index_path)
+
+    return index.np_retriever()
+
+
 def dense_no_index_retriever(index_path: str, checkpoint: str, batch_size: int = 128, **kwargs):
     from pyterrier_dr import HgfBiEncoder, FlexIndex
 
