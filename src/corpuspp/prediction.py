@@ -61,7 +61,7 @@ def partitioned_qpptk_queries(partition):
 
 
 def run_qpptk(dataset_id, partition):
-    input_dir = partitioned_qpptk_queries(0)
+    input_dir = partitioned_qpptk_queries(partition)
     output_dir = (Path(input_dir) / dataset_id.replace('/', '-')).absolute().resolve()
 
     if output_dir.exists():
@@ -80,8 +80,14 @@ def run_qpptk(dataset_id, partition):
 
 @click.command()
 @click.option('--dataset', required=True, type=click.Choice(['msmarco-passage', 'beir/webis-touche2020', 'msmarco-subsample']))
-def main(dataset):
-    run_qpptk(dataset, 0)
+@click.option('--partition', required=True, type=int)
+@click.option('--num', default=10, type=int)
+def main(dataset, partition, num):
+    to_predict = list(range(partition, partition + num))
+    print(f'Run {dataset} preds on partitions {to_predict}')
+
+    for p in to_predict:
+        run_qpptk(dataset, p)
 
 if __name__ == main():
     main()
