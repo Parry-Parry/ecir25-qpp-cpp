@@ -15,6 +15,8 @@ def get_index_dir(dataset_id):
         return str(Path('../../data/ms-marco-subsample').absolute().resolve())
     elif dataset_id == 'nfcorpus':
         return str(Path('../../data/nfcorpus').absolute().resolve())
+    elif dataset_id == 'cranfield':
+        return str(Path('../../data/cranfield').absolute().resolve())
     else:
         raise ValueError('foo')
 
@@ -81,7 +83,7 @@ def run_qpptk(dataset_id, partition):
 
 
 @click.command()
-@click.option('--dataset', required=True, type=click.Choice(['msmarco-passage', 'beir/webis-touche2020', 'msmarco-subsample', 'nfcorpus']))
+@click.option('--dataset', required=True, type=click.Choice(['msmarco-passage', 'beir/webis-touche2020', 'msmarco-subsample', 'nfcorpus', 'cranfield']))
 @click.option('--partition', required=True, type=int)
 @click.option('--num', default=10, type=int)
 def main(dataset, partition, num):

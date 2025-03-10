@@ -2,9 +2,10 @@
 import json
 
 CORPORA = [
-    '/mnt/ceph/tira/data/datasets/training-datasets/ir-benchmarks/nfcorpus-test-20230107-training/queries.jsonl',
-    '/mnt/ceph/tira/data/datasets/training-datasets/ir-benchmarks/msmarco-passage-trec-dl-2019-judged-20230107-training/queries.jsonl',
-    '/mnt/ceph/tira/data/datasets/training-datasets/ir-benchmarks/argsme-touche-2020-task-1-20230209-training/queries.jsonl',
+#    '/mnt/ceph/tira/data/datasets/training-datasets/ir-benchmarks/nfcorpus-test-20230107-training/queries.jsonl',
+#    '/mnt/ceph/tira/data/datasets/training-datasets/ir-benchmarks/msmarco-passage-trec-dl-2019-judged-20230107-training/queries.jsonl',
+#    '/mnt/ceph/tira/data/datasets/training-datasets/ir-benchmarks/argsme-touche-2020-task-1-20230209-training/queries.jsonl',
+    '/mnt/ceph/tira/data/datasets/training-datasets/ir-benchmarks/cranfield-20230107-training/queries.jsonl',
 ]
 ret = []
 for c in CORPORA:
@@ -16,6 +17,8 @@ for c in CORPORA:
             suffix = 'msmarco'
         elif 'argsme' in c:
             suffix = 'argsme'
+        elif 'cranfield' in c:
+            suffix = 'cranfield'
         else:
             raise ValueError('foo')
         for l in f:
@@ -26,7 +29,7 @@ for c in CORPORA:
             l['qid'] = l['qid'] + '-' + suffix
             ret.append(json.dumps(l) + '\n')
 
-with open('../../data/qpptk_partitioned/partition-999/queries.jsonl', 'w') as f:
+with open('../../data/qpptk_partitioned/partition-9999/queries.jsonl', 'w') as f:
     for l in ret:
         f.write(l)
 
