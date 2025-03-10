@@ -55,8 +55,33 @@ with open('../../data/queries.jsonl', 'r') as f:
 
         l['qpptk_predictions'] = qid_to_dataset[query_to_qid[l['query']]]
         preds.append(json.dumps(l) + '\n')
+   
 
 print('=>', len(preds))
 with gzip.open('../../data/queries-with-predictions.jsonl.gz', 'wt') as f:
     for l in preds:
         f.write(l)
+
+preds = []
+
+for query in qid_to_dataset.keys():
+    if '-cranfield' in query:
+        source = 'cranfield'
+    elif '-argsme' in query:
+        source = 'beir-webis-touche2020'
+    elif '-nfcorpus' in query:
+        source = 'nfcorpus'
+    elif '-msmarco' in query:
+        source = 'msmarco-passage'
+    else:
+        continue
+    if len(qid_to_dataset[query]) != len(DATASETS):
+        continue
+
+    preds.append(json.dumps({'query': query, 'source': source, 'qpptk_predictions': qid_to_dataset[query]}) + '\n')
+
+print('=>', len(preds))
+with gzip.open('../../data/in-domain-queries-with-predictions.jsonl.gz', 'wt') as f:
+    for l in preds:
+        f.write(l)
+
