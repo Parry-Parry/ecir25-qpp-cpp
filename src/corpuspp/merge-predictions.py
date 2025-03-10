@@ -8,6 +8,7 @@ DATASETS = [
     'beir-webis-touche2020',
     'msmarco-passage',
     'msmarco-subsample',
+    'nfcorpus',
 ]
 
 def matches(dataset):
@@ -48,7 +49,7 @@ with open('../../data/queries.jsonl', 'r') as f:
         if l['query'] not in query_to_qid:
             continue
 
-        if query_to_qid[l['query']] not in qid_to_dataset or len(qid_to_dataset[query_to_qid[l['query']]]) != 3:
+        if query_to_qid[l['query']] not in qid_to_dataset or len(qid_to_dataset[query_to_qid[l['query']]]) != 4:
             continue
 
         l['qpptk_predictions'] = qid_to_dataset[query_to_qid[l['query']]]

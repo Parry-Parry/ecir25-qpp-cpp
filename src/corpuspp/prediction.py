@@ -13,6 +13,8 @@ def get_index_dir(dataset_id):
         return tira.get_run_output('ir-benchmarks/tira-ir-starter/Index (tira-ir-starter-pyterrier)', 'argsme-touche-2020-task-1-20230209-training')
     elif dataset_id == 'msmarco-subsample':
         return str(Path('../../data/ms-marco-subsample').absolute().resolve())
+    elif dataset_id == 'nfcorpus':
+        return str(Path('../../data/nfcorpus').absolute().resolve())
     else:
         raise ValueError('foo')
 
@@ -79,7 +81,7 @@ def run_qpptk(dataset_id, partition):
 
 
 @click.command()
-@click.option('--dataset', required=True, type=click.Choice(['msmarco-passage', 'beir/webis-touche2020', 'msmarco-subsample']))
+@click.option('--dataset', required=True, type=click.Choice(['msmarco-passage', 'beir/webis-touche2020', 'msmarco-subsample', 'nfcorpus']))
 @click.option('--partition', required=True, type=int)
 @click.option('--num', default=10, type=int)
 def main(dataset, partition, num):
